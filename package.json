@@ -4,8 +4,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build --base=/mathweb",
+    "build_debug": "vite build --base=/mathweb --minify false",
+    "build_local": "vite build --minify false",
     "serve": "vite preview",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist",
+    "deploy_debug": "npm run build_debug && gh-pages -d dist"
   },
   "dependencies": {
     "pixi.js": "^6.2.0",
