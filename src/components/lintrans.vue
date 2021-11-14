@@ -24,7 +24,7 @@ matrixChanged([[1,0],[0,1]])
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between flex-wrap">
     <component :is="Space" :vectors="inputVectors" id="leftMatrix"/>
     <component :is="MatrixInput" :rows="mrows" :cols="mcols" class="flex-shrink" @matrixChange="matrixChanged"/>
     <component :is="Space" :vectors="outputVectors" id="rightMatrix"/>
