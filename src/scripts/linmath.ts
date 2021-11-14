@@ -16,8 +16,8 @@ export class Vector {
         if (this.dim > 2) {
             let dim3ToDim2Matrix = new Matrix(
                 new Vector(1, 0),
-                new Vector(0, 1),
-                new Vector(-0.5*Math.cos(Math.atan(2)), 0.5*Math.sin(Math.atan(2)))
+                new Vector(0, -1),
+                new Vector(0.5*Math.cos(Math.atan(2)), -0.5*Math.sin(Math.atan(2)))
             )
             return this.multiply(dim3ToDim2Matrix)
         } else {
@@ -26,21 +26,18 @@ export class Vector {
     }
 
     lineParams(two: Two) {
-
         if (this.dim > 3) {
             throw new Error("Can only get line params for vector with max dimension 4")
         }
         if (this.dim == 1) {
-            return [two.width / 2, two.height / 2,
-                two.width / 2 + this.elements[0], two.height / 2]
+            return [0, 0,
+                this.elements[0],0]
         } else if (this.dim == 2) {
-            return [two.width / 2, two.height / 2,
-                two.width / 2 + this.elements[0], two.height / 2 - this.elements[1]]
+            return [0,0, this.elements[0], -this.elements[1]]
         } else {
             // dim is 3
             let dim2Vector = this.as2D
-            return [two.width / 2, two.height / 2,
-                two.width / 2 + dim2Vector.e[0], two.height / 2 - dim2Vector.e[1]]
+            return [0, 0, dim2Vector.e[0], dim2Vector.e[1]]
         }
     }
 

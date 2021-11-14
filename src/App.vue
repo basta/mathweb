@@ -13,8 +13,8 @@ const matrixChanged = (event: number[][]) => {
   console.log(event)
   console.log(event[0][0])
 }
-const dim2vectors = [new Vector(50, 0), new Vector(0, -50)]
-const dim3vectors = [new Vector(50, 0,0), new Vector(0, -50, 0), new Vector(0,0,-50)]
+const dim2vectors = [new Vector(50, 0), new Vector(0, 50)]
+const dim3vectors = [new Vector(50, 0,0), new Vector(0, 50, 0), new Vector(0,0,50)]
 </script>
 
 <template>

@@ -13,7 +13,7 @@ import {onMounted, onUpdated, ref, watch} from "vue";
 const WIDTH = 200
 const HEIGHT = 200
 const root = ref(null)
-let props = defineProps<{ vectors: Vector[] }>()
+let props = defineProps<{ vectors: Vector[], bases:Vector[] }>()
 
 const app = new PIXI.Application({antialias: true, width: WIDTH, height: HEIGHT, backgroundColor: 0xffffff});
 let lineContainer = new PIXI.Container()
@@ -64,7 +64,8 @@ onMounted(() => {
   if (props.vectors) {
     const colors = ["Aqua", "Chocolate", "red", "SeaGreen", "SlateGrey"]
     for (const i in props.vectors) {
-      let line = new PixiLine(0, 0, props.vectors[i].as2D.e[0], props.vectors[i].as2D.e[1], 3,
+      let params = props.vectors[i].lineParams(app.view)
+      let line = new PixiLine(params[0], params[1], params[2], params[3],3,
           PIXI.utils.string2hex(colors[i]))
       lineContainer.addChild(line.graphics)
       lines.push(line)
@@ -86,8 +87,9 @@ onMounted(() => {
 })
 onUpdated(() => {
   for (const i in props.vectors) {
-    lines[i].y2 = props.vectors[i].as2D.e[1]
-    lines[i].x2 = props.vectors[i].as2D.e[0]
+    lines[i].y2 = props.vectors[i].lineParams(app.view)[3]
+    lines[i].x2 = props.vectors[i].lineParams(app.view)[2]
+    console.log(props.vectors[i].lineParams(app.view))
   }
 })
 </script>
