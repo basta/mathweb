@@ -1,1 +1,390 @@
-var $=Object.defineProperty;var A=(o,e,t)=>e in o?$(o,e,{enumerable:!0,configurable:!0,writable:!0,value:t}):o[e]=t;var d=(o,e,t)=>(A(o,typeof e!="symbol"?e+"":e,t),t);import{G as V,d as w,r as y,A as B,C as P,o as S,T as M,s as z,a as G,b as h,c as f,F as C,e as E,u as c,w as N,v as j,f as b,g as D,h as v,i as k,j as H}from"./vendor.b5b905a1.js";const O=function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))i(s);new MutationObserver(s=>{for(const n of s)if(n.type==="childList")for(const a of n.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&i(a)}).observe(document,{childList:!0,subtree:!0});function t(s){const n={};return s.integrity&&(n.integrity=s.integrity),s.referrerpolicy&&(n.referrerPolicy=s.referrerpolicy),s.crossorigin==="use-credentials"?n.credentials="include":s.crossorigin==="anonymous"?n.credentials="omit":n.credentials="same-origin",n}function i(s){if(s.ep)return;s.ep=!0;const n=t(s);fetch(s.href,n)}};O();class l{constructor(...e){d(this,"elements",[]);this.elements=e}get e(){return this.elements}get dim(){return this.elements.length}get as2D(){if(this.dim>2){let e=new g(new l(1,0),new l(0,1),new l(-.5*Math.cos(Math.atan(2)),.5*Math.sin(Math.atan(2))));return this.multiply(e)}else return this}lineParams(e){if(this.dim>3)throw new Error("Can only get line params for vector with max dimension 4");if(this.dim==1)return[e.width/2,e.height/2,e.width/2+this.elements[0],e.height/2];if(this.dim==2)return[e.width/2,e.height/2,e.width/2+this.elements[0],e.height/2-this.elements[1]];{let t=this.as2D;return[e.width/2,e.height/2,e.width/2+t.e[0],e.height/2-t.e[1]]}}multiply(e){if(typeof e=="number")return new l(...this.elements.map(t=>t*e));{let t=new l;for(const i in this.e){let s=0;for(const n in e.e)s+=e.e[n].e[i]*this.e[n];t.e.push(s)}return t}}}class g{constructor(...e){d(this,"elements",[]);this.elements=e}get e(){return this.elements}multiply(e){if(typeof e=="number")return new g(...this.elements.map(t=>t.multiply(e)));{let t=new g;for(const i of e.e)t.e.push(i.multiply(this));return t}}}class F{constructor(e,t,i,s,n=3,a=0,u=null){d(this,"width");d(this,"color");d(this,"_x1",0);d(this,"_x2",0);d(this,"_y1",0);d(this,"_y2",0);d(this,"graphics",new V);this.x1=e,this.x2=i,this.y1=t,this.y2=s,this.width=3,this.color=a,this._reset()}get y1(){return this._y1}set y1(e){this._y1=e,this._reset()}get y2(){return this._y2}set y2(e){this._y2=e,this._reset()}get x1(){return this._x1}set x1(e){this._x1=e,this._reset()}get x2(){return this._x2}set x2(e){this._x2=e,this._reset()}_reset(){this.graphics.clear(),this.graphics.lineStyle(this.width,this.color),this.graphics.moveTo(this.x1,this.y1),this.graphics.lineTo(this.x2,this.y2)}get startVector(){return new l(this.x1,this.y1)}set startVector(e){this.x1=e.e[0],this.y1=e.e[1],this._reset()}get endVector(){return new l(this.x2,this.y2)}set endVector(e){this.x2=e.e[0],this.y2=e.e[1],this._reset()}get vectors(){return[this.startVector,this.endVector]}set vectors(e){this.startVector=e[0],this.endVector=e[1],this._reset()}}const I=w({props:{vectors:null},setup(o){const e=o,t=200,i=200,s=y(null),n=new B({antialias:!0,width:t,height:i,backgroundColor:16777215});let a=new P,u=[];return S(()=>{document.getElementById("draw-space")!=null&&(document.getElementById("draw-space").innerHTML=""),s==null||s.value.appendChild(n.view);const r=new V,x=new M("X");x.x=t-20,x.y=i/2-30,n.stage.addChild(x),r.lineStyle(2,7829367),r.moveTo(0,i/2),r.lineTo(t,i/2);const m=new M("Y");if(m.x=t/2-25,m.y=0,n.stage.addChild(m),r.lineStyle(2,7829367),r.moveTo(t/2,0),r.lineTo(t/2,i),n.stage.addChild(r),e.vectors.some(p=>p.dim>=3)){const p=new M("Z");p.x=t/2+Math.tan(Math.PI/2-Math.atan(2))*i/2,p.y=0,n.stage.addChild(p),r.lineStyle(2,7829367),r.moveTo(t/2+Math.tan(Math.PI/2-Math.atan(2))*i/2,0),r.lineTo(t/2-Math.tan(Math.PI/2-Math.atan(2))*(i/2),i),n.stage.addChild(r)}if(a.x=n.screen.width/2,a.y=n.screen.height/2,n.stage.addChild(a),e.vectors){const p=["Aqua","Chocolate","red","SeaGreen","SlateGrey"];for(const _ in e.vectors){let T=new F(0,0,e.vectors[_].as2D.e[0],e.vectors[_].as2D.e[1],3,z(p[_]));a.addChild(T.graphics),u.push(T)}}}),G(()=>{for(const r in e.vectors)u[r].y2=e.vectors[r].as2D.e[1],u[r].x2=e.vectors[r].as2D.e[0]}),(r,x)=>(h(),f("div",{ref:(m,p)=>{p.root=m,s.value=m}},null,512))}}),U={class:"w-auto inline-block border-l-4 border-r-4 border-black"},q={class:"object-fill flex"},K=["onUpdate:modelValue"],W=w({props:{cols:null,rows:null},emits:["matrixChange"],setup(o,{emit:e}){const t=o;let i=y(Array(t.rows).fill(0).map(()=>Array(t.cols).fill(0)));for(let s=0;s<Math.min(t.cols,t.rows);s++)i.value[s][s]=1;return e("matrixChange",i.value),console.log(i),(s,n)=>(h(),f("div",U,[(h(!0),f(C,null,E(c(i),(a,u)=>(h(),f("div",q,[(h(!0),f(C,null,E(a,(r,x)=>N((h(),f("input",{class:"flex-auto w-6 text-center","onUpdate:modelValue":m=>c(i)[u][x]=m,onChange:n[0]||(n[0]=m=>s.$emit("matrixChange",c(i)))},null,40,K)),[[j,c(i)[u][x]]])),256))]))),256))]))}}),X={class:"flex items-center justify-between"},L=w({props:{inputvectors:null,mcols:null,mrows:null},setup(o){const e=o;let t=new g(new l(0,0),new l(0,0));y(null);let i=0,s=u=>{t=new g(...u.map(r=>new l(...r))),console.log("Input vectors:",n.value),a.value=n.value.map(r=>r.multiply(t)),i=i+1,console.log(i)},n=y(e.inputvectors),a=y([]);return s([[1,0],[0,1]]),(u,r)=>(h(),f("div",X,[(h(),b(D(I),{vectors:c(n),id:"leftMatrix"},null,8,["vectors"])),(h(),b(D(W),{rows:o.mrows,cols:o.mcols,class:"flex-shrink",onMatrixChange:c(s)},null,8,["rows","cols","onMatrixChange"])),(h(),b(D(I),{vectors:c(a),id:"rightMatrix"},null,8,["vectors"]))]))}});const Y=v("h1",{class:"text-7xl mb-10"},"Ba\u0161tovo web na matiku",-1),Z={class:"container m-auto"},J=v("h2",{class:"text-3xl"},"Matice lin. zobrazen\xED",-1),Q={class:"container m-auto"},R=v("h2",{class:"text-3xl"},"Line\xE1rn\xED zobrazen\xED ve 3D",-1),ee=w({setup(o){return(e,t)=>(h(),f(C,null,[Y,v("div",Z,[J,k(L,{mcols:2,mrows:2,inputvectors:[new c(l)(50,0),new c(l)(0,50)]},null,8,["inputvectors"])]),v("div",Q,[R,k(L,{inputvectors:[new c(l)(50,0,0),new c(l)(0,-50,0),new c(l)(0,0,-50)],mcols:3,mrows:3},null,8,["inputvectors"])])],64))}});H(ee).mount("#app");
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+import { G as Graphics, d as defineComponent, r as ref, A as Application, C as Container, o as onMounted, T as Text, s as string2hex, a as onUpdated, b as openBlock, c as createElementBlock, F as Fragment, e as renderList, u as unref, w as withDirectives, v as vModelText, f as createBlock, g as resolveDynamicComponent, h as createBaseVNode, i as createVNode, j as createApp } from "./vendor.b5b905a1.js";
+const p = function polyfill() {
+  const relList = document.createElement("link").relList;
+  if (relList && relList.supports && relList.supports("modulepreload")) {
+    return;
+  }
+  for (const link of document.querySelectorAll('link[rel="modulepreload"]')) {
+    processPreload(link);
+  }
+  new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type !== "childList") {
+        continue;
+      }
+      for (const node of mutation.addedNodes) {
+        if (node.tagName === "LINK" && node.rel === "modulepreload")
+          processPreload(node);
+      }
+    }
+  }).observe(document, { childList: true, subtree: true });
+  function getFetchOpts(script) {
+    const fetchOpts = {};
+    if (script.integrity)
+      fetchOpts.integrity = script.integrity;
+    if (script.referrerpolicy)
+      fetchOpts.referrerPolicy = script.referrerpolicy;
+    if (script.crossorigin === "use-credentials")
+      fetchOpts.credentials = "include";
+    else if (script.crossorigin === "anonymous")
+      fetchOpts.credentials = "omit";
+    else
+      fetchOpts.credentials = "same-origin";
+    return fetchOpts;
+  }
+  function processPreload(link) {
+    if (link.ep)
+      return;
+    link.ep = true;
+    const fetchOpts = getFetchOpts(link);
+    fetch(link.href, fetchOpts);
+  }
+};
+p();
+class Vector {
+  constructor(...elements) {
+    __publicField(this, "elements", []);
+    this.elements = elements;
+  }
+  get e() {
+    return this.elements;
+  }
+  get dim() {
+    return this.elements.length;
+  }
+  get as2D() {
+    if (this.dim > 2) {
+      let dim3ToDim2Matrix = new Matrix(new Vector(1, 0), new Vector(0, 1), new Vector(-0.5 * Math.cos(Math.atan(2)), 0.5 * Math.sin(Math.atan(2))));
+      return this.multiply(dim3ToDim2Matrix);
+    } else {
+      return this;
+    }
+  }
+  lineParams(two) {
+    if (this.dim > 3) {
+      throw new Error("Can only get line params for vector with max dimension 4");
+    }
+    if (this.dim == 1) {
+      return [
+        two.width / 2,
+        two.height / 2,
+        two.width / 2 + this.elements[0],
+        two.height / 2
+      ];
+    } else if (this.dim == 2) {
+      return [
+        two.width / 2,
+        two.height / 2,
+        two.width / 2 + this.elements[0],
+        two.height / 2 - this.elements[1]
+      ];
+    } else {
+      let dim2Vector = this.as2D;
+      return [
+        two.width / 2,
+        two.height / 2,
+        two.width / 2 + dim2Vector.e[0],
+        two.height / 2 - dim2Vector.e[1]
+      ];
+    }
+  }
+  multiply(other) {
+    if (typeof other === "number") {
+      return new Vector(...this.elements.map((x) => x * other));
+    } else {
+      let newVector = new Vector();
+      for (const thisi in this.e) {
+        let sum = 0;
+        for (const matrixi in other.e) {
+          sum += other.e[matrixi].e[thisi] * this.e[matrixi];
+        }
+        newVector.e.push(sum);
+      }
+      return newVector;
+    }
+  }
+}
+class Matrix {
+  constructor(...elements) {
+    __publicField(this, "elements", []);
+    this.elements = elements;
+  }
+  get e() {
+    return this.elements;
+  }
+  multiply(other) {
+    if (typeof other === "number") {
+      return new Matrix(...this.elements.map((row) => row.multiply(other)));
+    } else {
+      let resMatrix = new Matrix();
+      for (const vector of other.e) {
+        resMatrix.e.push(vector.multiply(this));
+      }
+      return resMatrix;
+    }
+  }
+}
+class PixiLine {
+  constructor(x1, y1, x2, y2, width = 3, color = 0, app = null) {
+    __publicField(this, "width");
+    __publicField(this, "color");
+    __publicField(this, "_x1", 0);
+    __publicField(this, "_x2", 0);
+    __publicField(this, "_y1", 0);
+    __publicField(this, "_y2", 0);
+    __publicField(this, "graphics", new Graphics());
+    this.x1 = x1;
+    this.x2 = x2;
+    this.y1 = y1;
+    this.y2 = y2;
+    this.width = 3;
+    this.color = color;
+    this._reset();
+  }
+  get y1() {
+    return this._y1;
+  }
+  set y1(value) {
+    this._y1 = value;
+    this._reset();
+  }
+  get y2() {
+    return this._y2;
+  }
+  set y2(value) {
+    this._y2 = value;
+    this._reset();
+  }
+  get x1() {
+    return this._x1;
+  }
+  set x1(value) {
+    this._x1 = value;
+    this._reset();
+  }
+  get x2() {
+    return this._x2;
+  }
+  set x2(value) {
+    this._x2 = value;
+    this._reset();
+  }
+  _reset() {
+    this.graphics.clear();
+    this.graphics.lineStyle(this.width, this.color);
+    this.graphics.moveTo(this.x1, this.y1);
+    this.graphics.lineTo(this.x2, this.y2);
+  }
+  get startVector() {
+    return new Vector(this.x1, this.y1);
+  }
+  set startVector(value) {
+    this.x1 = value.e[0];
+    this.y1 = value.e[1];
+    this._reset();
+  }
+  get endVector() {
+    return new Vector(this.x2, this.y2);
+  }
+  set endVector(value) {
+    this.x2 = value.e[0];
+    this.y2 = value.e[1];
+    this._reset();
+  }
+  get vectors() {
+    return [this.startVector, this.endVector];
+  }
+  set vectors(value) {
+    this.startVector = value[0];
+    this.endVector = value[1];
+    this._reset();
+  }
+}
+const _sfc_main$3 = /* @__PURE__ */ defineComponent({
+  props: {
+    vectors: null
+  },
+  setup(__props) {
+    const props = __props;
+    const WIDTH = 200;
+    const HEIGHT = 200;
+    const root = ref(null);
+    const app = new Application({ antialias: true, width: WIDTH, height: HEIGHT, backgroundColor: 16777215 });
+    let lineContainer = new Container();
+    let lines = [];
+    onMounted(() => {
+      if (document.getElementById("draw-space") != null) {
+        document.getElementById("draw-space").innerHTML = "";
+      }
+      root == null ? void 0 : root.value.appendChild(app.view);
+      const graphics = new Graphics();
+      const xtext = new Text("X");
+      xtext.x = WIDTH - 20;
+      xtext.y = HEIGHT / 2 - 30;
+      app.stage.addChild(xtext);
+      graphics.lineStyle(2, 7829367);
+      graphics.moveTo(0, HEIGHT / 2);
+      graphics.lineTo(WIDTH, HEIGHT / 2);
+      const ytext = new Text("Y");
+      ytext.x = WIDTH / 2 - 25;
+      ytext.y = 0;
+      app.stage.addChild(ytext);
+      graphics.lineStyle(2, 7829367);
+      graphics.moveTo(WIDTH / 2, 0);
+      graphics.lineTo(WIDTH / 2, HEIGHT);
+      app.stage.addChild(graphics);
+      if (props.vectors.some((vector) => vector.dim >= 3)) {
+        const ztext = new Text("Z");
+        ztext.x = WIDTH / 2 + Math.tan(Math.PI / 2 - Math.atan(2)) * HEIGHT / 2;
+        ztext.y = 0;
+        app.stage.addChild(ztext);
+        graphics.lineStyle(2, 7829367);
+        graphics.moveTo(WIDTH / 2 + Math.tan(Math.PI / 2 - Math.atan(2)) * HEIGHT / 2, 0);
+        graphics.lineTo(WIDTH / 2 - Math.tan(Math.PI / 2 - Math.atan(2)) * (HEIGHT / 2), HEIGHT);
+        app.stage.addChild(graphics);
+      }
+      lineContainer.x = app.screen.width / 2;
+      lineContainer.y = app.screen.height / 2;
+      app.stage.addChild(lineContainer);
+      if (props.vectors) {
+        const colors = ["Aqua", "Chocolate", "red", "SeaGreen", "SlateGrey"];
+        for (const i in props.vectors) {
+          let line = new PixiLine(0, 0, props.vectors[i].as2D.e[0], props.vectors[i].as2D.e[1], 3, string2hex(colors[i]));
+          lineContainer.addChild(line.graphics);
+          lines.push(line);
+        }
+      }
+    });
+    onUpdated(() => {
+      for (const i in props.vectors) {
+        lines[i].y2 = props.vectors[i].as2D.e[1];
+        lines[i].x2 = props.vectors[i].as2D.e[0];
+      }
+    });
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("div", {
+        ref: (_value, _refs) => {
+          _refs["root"] = _value;
+          root.value = _value;
+        }
+      }, null, 512);
+    };
+  }
+});
+const _hoisted_1$2 = { class: "w-auto inline-block border-l-4 border-r-4 border-black" };
+const _hoisted_2$1 = { class: "object-fill flex" };
+const _hoisted_3$1 = ["onUpdate:modelValue"];
+const _sfc_main$2 = /* @__PURE__ */ defineComponent({
+  props: {
+    cols: null,
+    rows: null
+  },
+  emits: ["matrixChange"],
+  setup(__props, { emit }) {
+    const props = __props;
+    let matrixData = ref(Array(props.rows).fill(0).map(() => Array(props.cols).fill(0)));
+    for (let i = 0; i < Math.min(props.cols, props.rows); i++) {
+      matrixData.value[i][i] = 1;
+    }
+    emit("matrixChange", matrixData.value);
+    console.log(matrixData);
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("div", _hoisted_1$2, [
+        (openBlock(true), createElementBlock(Fragment, null, renderList(unref(matrixData), (row, rowi) => {
+          return openBlock(), createElementBlock("div", _hoisted_2$1, [
+            (openBlock(true), createElementBlock(Fragment, null, renderList(row, (item, coli) => {
+              return withDirectives((openBlock(), createElementBlock("input", {
+                class: "flex-auto w-6 text-center",
+                "onUpdate:modelValue": ($event) => unref(matrixData)[rowi][coli] = $event,
+                onChange: _cache[0] || (_cache[0] = ($event) => _ctx.$emit("matrixChange", unref(matrixData)))
+              }, null, 40, _hoisted_3$1)), [
+                [vModelText, unref(matrixData)[rowi][coli]]
+              ]);
+            }), 256))
+          ]);
+        }), 256))
+      ]);
+    };
+  }
+});
+const _hoisted_1$1 = { class: "flex items-center justify-between" };
+const _sfc_main$1 = /* @__PURE__ */ defineComponent({
+  props: {
+    inputvectors: null,
+    mcols: null,
+    mrows: null
+  },
+  setup(__props) {
+    const props = __props;
+    let transformMatrix = new Matrix(new Vector(0, 0), new Vector(0, 0));
+    ref(null);
+    let key = 0;
+    let matrixChanged = (event) => {
+      transformMatrix = new Matrix(...event.map((value) => new Vector(...value)));
+      console.log("Input vectors:", inputVectors.value);
+      outputVectors.value = inputVectors.value.map((value) => value.multiply(transformMatrix));
+      key = key + 1;
+      console.log(key);
+    };
+    let inputVectors = ref(props.inputvectors);
+    let outputVectors = ref([]);
+    matrixChanged([[1, 0], [0, 1]]);
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock("div", _hoisted_1$1, [
+        (openBlock(), createBlock(resolveDynamicComponent(_sfc_main$3), {
+          vectors: unref(inputVectors),
+          id: "leftMatrix"
+        }, null, 8, ["vectors"])),
+        (openBlock(), createBlock(resolveDynamicComponent(_sfc_main$2), {
+          rows: __props.mrows,
+          cols: __props.mcols,
+          class: "flex-shrink",
+          onMatrixChange: unref(matrixChanged)
+        }, null, 8, ["rows", "cols", "onMatrixChange"])),
+        (openBlock(), createBlock(resolveDynamicComponent(_sfc_main$3), {
+          vectors: unref(outputVectors),
+          id: "rightMatrix"
+        }, null, 8, ["vectors"]))
+      ]);
+    };
+  }
+});
+var App_vue_vue_type_style_index_0_lang = "";
+const _hoisted_1 = /* @__PURE__ */ createBaseVNode("h1", { class: "text-7xl mb-10" }, "Ba\u0161tovo web na matiku", -1);
+const _hoisted_2 = { class: "container m-auto" };
+const _hoisted_3 = /* @__PURE__ */ createBaseVNode("h2", { class: "text-3xl" }, "Matice lin. zobrazen\xED", -1);
+const _hoisted_4 = { class: "container m-auto" };
+const _hoisted_5 = /* @__PURE__ */ createBaseVNode("h2", { class: "text-3xl" }, "Line\xE1rn\xED zobrazen\xED ve 3D", -1);
+const _sfc_main = /* @__PURE__ */ defineComponent({
+  setup(__props) {
+    return (_ctx, _cache) => {
+      return openBlock(), createElementBlock(Fragment, null, [
+        _hoisted_1,
+        createBaseVNode("div", _hoisted_2, [
+          _hoisted_3,
+          createVNode(_sfc_main$1, {
+            mcols: 2,
+            mrows: 2,
+            inputvectors: [new unref(Vector)(50, 0), new unref(Vector)(0, 50)]
+          }, null, 8, ["inputvectors"])
+        ]),
+        createBaseVNode("div", _hoisted_4, [
+          _hoisted_5,
+          createVNode(_sfc_main$1, {
+            inputvectors: [new unref(Vector)(50, 0, 0), new unref(Vector)(0, -50, 0), new unref(Vector)(0, 0, -50)],
+            mcols: 3,
+            mrows: 3
+          }, null, 8, ["inputvectors"])
+        ])
+      ], 64);
+    };
+  }
+});
+var index = "";
+createApp(_sfc_main).mount("#app");
