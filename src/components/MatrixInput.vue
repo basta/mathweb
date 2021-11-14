@@ -15,9 +15,13 @@
 import {root} from "postcss";
 import {onMounted, ref, unref} from "vue";
 
-let props = defineProps<{ cols: string, rows: string }>()
-let matrixData = ref(Array(parseInt(props.rows)).fill(0).map(() => Array(parseInt(props.rows)).fill(0)));
-defineEmits()
+let props = defineProps<{ cols: number, rows: number }>()
+let matrixData = ref(Array(props.rows).fill(0).map(() => Array(props.cols).fill(0)));
+for (let i = 0; i < Math.min(props.cols, props.rows); i++) {
+  matrixData.value[i][i] = 1
+}
+const emit = defineEmits(["matrixChange"])
+emit("matrixChange", matrixData.value)
 console.log(matrixData)
 </script>
 

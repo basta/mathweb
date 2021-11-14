@@ -10,8 +10,8 @@ import {PixiLine} from "../scripts/pixiextensions";
 import {Container} from "postcss";
 import {onMounted, onUpdated, ref, watch} from "vue";
 
-const WIDTH = 500
-const HEIGHT = 500
+const WIDTH = 200
+const HEIGHT = 200
 const root = ref(null)
 let props = defineProps<{ vectors: Vector[] }>()
 
@@ -45,35 +45,49 @@ onMounted(() => {
   graphics.lineTo(WIDTH / 2, HEIGHT)
   app.stage.addChild(graphics)
 
+  //If applicable draw Z axis
+  if (props.vectors.some((vector) => vector.dim >= 3)) {
+    const ztext = new PIXI.Text("Z")
+    ztext.x = (WIDTH / 2) + Math.tan(Math.PI/2 - Math.atan(2))*HEIGHT/2
+    ztext.y = 0
+    app.stage.addChild(ztext)
+    graphics.lineStyle(2, 0x777777)
+    graphics.moveTo((WIDTH / 2) + Math.tan(Math.PI/2 - Math.atan(2))*HEIGHT/2, 0)
+    graphics.lineTo((WIDTH / 2) - Math.tan(Math.PI/2 - Math.atan(2))*(HEIGHT/2), HEIGHT)
+    app.stage.addChild(graphics)
+  }
+
   lineContainer.x = app.screen.width / 2
   lineContainer.y = app.screen.height / 2
   app.stage.addChild(lineContainer)
 
   if (props.vectors) {
-    for (const vector of props.vectors) {
-      let line = new PixiLine(0, 0, vector.e[0], vector.e[1])
+    const colors = ["Aqua", "Chocolate", "red", "SeaGreen", "SlateGrey"]
+    for (const i in props.vectors) {
+      let line = new PixiLine(0, 0, props.vectors[i].as2D.e[0], props.vectors[i].as2D.e[1], 3,
+          PIXI.utils.string2hex(colors[i]))
       lineContainer.addChild(line.graphics)
       lines.push(line)
     }
   }
 
-  function move() {
-    let rot = 0.1;
-    let rotationMatrix = new Matrix(
-        new Vector(Math.cos(rot), Math.sin(rot)),
-        new Vector(-Math.sin(rot), Math.cos(rot)),
-    )
-    line.endVector = line.endVector.multiply(rotationMatrix)
-    line.startVector = line.startVector.multiply(rotationMatrix)
-    // console.log(line.endVector)
-    setTimeout(move, 50)
-  }
+  // function move() {
+  //   let rot = 0.1;
+  //   let rotationMatrix = new Matrix(
+  //       new Vector(Math.cos(rot), Math.sin(rot)),
+  //       new Vector(-Math.sin(rot), Math.cos(rot)),
+  //   )
+  //   line.endVector = line.endVector.multiply(rotationMatrix)
+  //   line.startVector = line.startVector.multiply(rotationMatrix)
+  //   // console.log(line.endVector)
+  //   setTimeout(move, 50)
+  // }
 
 })
 onUpdated(() => {
   for (const i in props.vectors) {
-    lines[i].y2 = props.vectors[i].e[1]
-    lines[i].x2 = props.vectors[i].e[0]
+    lines[i].y2 = props.vectors[i].as2D.e[1]
+    lines[i].x2 = props.vectors[i].as2D.e[0]
   }
 })
 </script>
