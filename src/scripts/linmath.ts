@@ -25,7 +25,7 @@ export class Vector {
         }
     }
 
-    lineParams(two: Two) {
+    lineParams() {
         if (this.dim > 3) {
             throw new Error("Can only get line params for vector with max dimension 4")
         }

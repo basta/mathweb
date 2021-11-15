@@ -1,11 +1,16 @@
 <template>
   <div class="w-auto inline-block border-l-4 border-r-4 border-black">
     <div class="object-fill flex" v-for="(row, rowi) in matrixData">
-      <input v-for="(item, coli) in row"
-             class="flex-auto w-6 text-center"
-             v-model="matrixData[rowi][coli]"
-             @change="$emit('matrixChange',matrixData)"
-      >
+      <div v-for="(item, coli) in row"
+           class="flex-auto w-20 text-center">
+        {{ matrixData[rowi][coli] }}
+        <input @input="$emit('matrixChange',matrixData)"
+               type="range" v-model="matrixData[rowi][coli]"
+                class="container pr-1 pl-1"
+               min="-3" max="3" step="0.1"
+        >
+
+      </div>
     </div>
   </div>
 </template>

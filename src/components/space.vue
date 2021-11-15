@@ -20,9 +20,6 @@ let lineContainer = new PIXI.Container()
 let lines: PixiLine[] = []
 
 onMounted(() => {
-  if (document.getElementById("draw-space") != null) {
-    document.getElementById("draw-space").innerHTML = ""
-  }
   //@ts-ignore
   root?.value.appendChild(app.view);
   const graphics = new PIXI.Graphics();
@@ -64,7 +61,7 @@ onMounted(() => {
   if (props.vectors) {
     const colors = ["Aqua", "Chocolate", "red", "SeaGreen", "SlateGrey"]
     for (const i in props.vectors) {
-      let params = props.vectors[i].lineParams(app.view)
+      let params = props.vectors[i].lineParams()
       let line = new PixiLine(params[0], params[1], params[2], params[3],3,
           PIXI.utils.string2hex(colors[i]))
       lineContainer.addChild(line.graphics)
@@ -87,9 +84,8 @@ onMounted(() => {
 })
 onUpdated(() => {
   for (const i in props.vectors) {
-    lines[i].y2 = props.vectors[i].lineParams(app.view)[3]
-    lines[i].x2 = props.vectors[i].lineParams(app.view)[2]
-    console.log(props.vectors[i].lineParams(app.view))
+    lines[i].y2 = props.vectors[i].lineParams()[3]
+    lines[i].x2 = props.vectors[i].lineParams()[2]
   }
 })
 </script>

@@ -8,6 +8,7 @@ import Matrix from "./components/MatrixInput.vue";
 import Lintrans from "./components/lintrans.vue";
 import MatrixInput from "./components/MatrixInput.vue";
 import {Vector} from "./scripts/linmath";
+import AllMatrixInput from "./components/AllMatrixInput.vue";
 
 const matrixChanged = (event: number[][]) => {
   console.log(event)

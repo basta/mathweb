@@ -2,6 +2,8 @@
 import {Vector, Matrix} from "../scripts/linmath";
 import Space from "./space.vue";
 import MatrixInput from "./MatrixInput.vue";
+import SliderMatrixInput from "./SliderMatrixInput.vue"
+import AllMatrixInput from "./AllMatrixInput.vue"
 import {ref} from "vue";
 let transformMatrix = new Matrix(new Vector(0, 0), new Vector(0, 0))
 const root = ref(null)
@@ -26,7 +28,7 @@ matrixChanged([[1,0],[0,1]])
 <template>
   <div class="flex items-center justify-between flex-wrap">
     <component :is="Space" :vectors="inputVectors" id="leftMatrix"/>
-    <component :is="MatrixInput" :rows="mrows" :cols="mcols" class="flex-shrink" @matrixChange="matrixChanged"/>
+    <component :is="AllMatrixInput" :rows="mrows" :cols="mcols" class="flex-shrink" @matrixChange="matrixChanged"/>
     <component :is="Space" :vectors="outputVectors" id="rightMatrix"/>
   </div>
 </template>

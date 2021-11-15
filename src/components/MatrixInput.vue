@@ -4,7 +4,7 @@
       <input v-for="(item, coli) in row"
              class="flex-auto w-6 text-center"
              v-model="matrixData[coli][rowi]"
-             @change="$emit('matrixChange',matrixData)"
+             @input="$emit('matrixChange',matrixData)"
       >
     </div>
   </div>
